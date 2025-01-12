@@ -21,13 +21,27 @@ journal_data = import_journals(url1)
 
 # Prompt user to check journal title
 journal_title = input("Check journal title: ")
+found = False
 for row in journal_data:
-    if row[0] == journal_title:
+    if row[0].lower() == journal_title.lower():
+        print(f"Journal found: {row}")
+        found = True
         publisher = row[1]  # Assuming publisher is in the second column
-        if publisher == 'elsevier':
-            if Elsevier_vouchers == 0:
-                print("check Oxygenium program")
-            else:
+        if publisher.lower() == 'elsevier':
+            if Elsevier_vouchers > 0:
                 print("You can pay APC from national Elsevier license")
-    else:
-        print("Journal not found.")
+            else:
+                print("Check Oxygenium program")
+        elif publisher.lower() == 'wiley':
+            try:
+                apc_value = float(row[6])  # Assuming APC value is in the seventh column
+                if Wiley_deposit > apc_value:
+                    print("You can pay APC from consortium Wiley license")
+                else:
+                    print("Check Oxygenium program")
+            except ValueError:
+                print("Invalid APC value in the data.")
+        break
+
+if not found:
+    print("Journal not found.")
