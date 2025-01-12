@@ -1,5 +1,5 @@
-import csv
 import requests
+import csv
 
 def import_journals(url1):
     response = requests.get(url1)
@@ -30,7 +30,7 @@ print(fund_data)
 # Prompt user to check journal title
 journal_title = input("Check journal title: ")
 for row in journal_data:
-    if row[0] = journal_title:
+    if row[0] == journal_title:
         print("Journal found")
         print(oxygenium)
         break
