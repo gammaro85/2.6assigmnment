@@ -31,7 +31,7 @@ def main():
     searched_apc = None
     for row in journal_data:
         if row[columns['journaltitle']].strip().lower() == journal_title:
-            print(f"Journal found: {row}")
+            #print(f"Journal found: {row}")
             found = True
             publisher = row[columns['publisher']].strip().lower()
             research_area = row[columns['research area']].strip().lower()
@@ -39,7 +39,7 @@ def main():
                 if Elsevier_vouchers > 0:
                     print("You can use voucher from national Elsevier license")
                 else:
-                    print("Check Oxygenium program")
+                    print("Not enough vouchers. Check Oxygenium program")
                 searched_apc = float(row[columns['apc']])  # Set searched_apc for Elsevier
             elif publisher == 'wiley':
                 try:
@@ -48,15 +48,15 @@ def main():
                     if Wiley_deposit > apc_value:
                         print("You can pay APC from consortium Wiley license")
                     else:
-                        print("Check Oxygenium program")
+                        print("Not enough money in the deposit. Check Oxygenium program")
                         # Search for another Wiley title with APC lower than Wiley_deposit and same research area
                         for other_row in journal_data:
                             if other_row[columns['publisher']].strip().lower() == 'wiley' and other_row[columns['research area']].strip().lower() == research_area:
                                 try:
                                     other_apc_value = float(other_row[columns['apc']])
                                     if Wiley_deposit > other_apc_value:
-                                        print(f"Another Wiley journal found: {other_row}")
-                                        print("You can pay APC from consortium Wiley license")
+                                        print("Another journal in your research area found:" [columns['journaltitle']])
+                                        print("You can pay APC in this journal from consortium Wiley license")
                                         break
                                 except ValueError:
                                     continue
