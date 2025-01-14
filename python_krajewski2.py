@@ -31,7 +31,7 @@ def main():
     searched_apc = None
     for row in journal_data:
         if row[columns['journaltitle']].strip().lower() == journal_title:
-            print(f"Journal" journal_title "found")
+            print("Title is on the list")
             found = True
             publisher = row[columns['publisher']].strip().lower()
             research_area = row[columns['research area']].strip().lower()
