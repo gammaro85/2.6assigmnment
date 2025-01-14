@@ -31,7 +31,7 @@ def main():
     searched_apc = None
     for row in journal_data:
         if row[columns['journaltitle']].strip().lower() == journal_title:
-            print(f"Journal found: {row}")
+            print(f"Journal" journal_title "found")
             found = True
             publisher = row[columns['publisher']].strip().lower()
             research_area = row[columns['research area']].strip().lower()
@@ -48,14 +48,14 @@ def main():
                     if Wiley_deposit > apc_value:
                         print("You can pay APC from consortium Wiley license")
                     else:
-                        print("Not enough money in the deposit. Check Oxygenium program")
+                        print("Not enough money in the deposit")
                         # Search for another Wiley title with APC lower than Wiley_deposit and same research area
                         for other_row in journal_data:
                             if other_row[columns['publisher']].strip().lower() == 'wiley' and other_row[columns['research area']].strip().lower() == research_area:
                                 try:
                                     other_apc_value = float(other_row[columns['apc']])
                                     if Wiley_deposit > other_apc_value:
-                                        print(f"Another journal in your research area found: {other_row[columns['journal title']]}")
+                                        print(f"Another journal in your research area found: {other_row[columns['journaltitle']]}")
                                         print("You can pay APC in this journal from consortium Wiley license")
                                         break
                                 except ValueError:
@@ -71,9 +71,9 @@ def main():
     apc_values = [float(row[columns['apc']]) for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
     journal_titles = [row[columns['journaltitle']] for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
 
-    print("APC Values:", apc_values)
-    print("Journal Titles:", journal_titles)
-    print("Searched APC:", searched_apc)
+    # print("APC Values:", apc_values)
+    # print("Journal Titles:", journal_titles)
+    # print("Searched APC:", searched_apc)
 
     plt.figure(figsize=(10, 5))
     bars = plt.bar(journal_titles, apc_values, color='blue')
@@ -83,7 +83,7 @@ def main():
         for bar, apc in zip(bars, apc_values):
             if apc == searched_apc:
                 bar.set_color('red')
-                print(f"Highlighted APC: {apc} for journal: {row[columns['journal title']]}")
+                # print(f"Highlighted APC: {apc} for journal: {row[columns['journaltitle']]}")
 
     plt.xlabel('Journal Titles')
     plt.ylabel('APC Values')
