@@ -71,6 +71,10 @@ if not found:
 apc_values = [float(row[columns['apc']]) for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
 journal_titles = [row[columns['journaltitle']] for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
 
+print("APC Values:", apc_values)
+print("Journal Titles:", journal_titles)
+print("Searched APC:", searched_apc)
+
 plt.figure(figsize=(10, 5))
 bars = plt.bar(journal_titles, apc_values, color='blue')
 
