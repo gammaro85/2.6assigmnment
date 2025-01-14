@@ -22,15 +22,15 @@ def main():
 
     # Map columns
     columns = {header.strip().lower(): index for index, header in enumerate(headers)}
-    print("Headers:", headers)
-    print("Columns mapping:", columns)
+    # print("Headers:", headers)
+    # print("Columns mapping:", columns)
 
     # Prompt user to check journal title
     journal_title = input("Check journal title: ").strip().lower()
     found = False
     searched_apc = None
     for row in journal_data:
-        if row[columns['journal title']].strip().lower() == journal_title:
+        if row[columns['journaltitle']].strip().lower() == journal_title:
             print(f"Journal found: {row}")
             found = True
             publisher = row[columns['publisher']].strip().lower()
@@ -69,7 +69,7 @@ def main():
 
     # Plotting the APC values
     apc_values = [float(row[columns['apc']]) for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
-    journal_titles = [row[columns['journal title']] for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
+    journal_titles = [row[columns['journaltitle']] for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
 
     print("APC Values:", apc_values)
     print("Journal Titles:", journal_titles)
