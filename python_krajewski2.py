@@ -22,24 +22,24 @@ def main():
 
     # Map columns
     columns = {header.strip().lower(): index for index, header in enumerate(headers)}
-    #print("Headers:", headers)
-    #print("Columns mapping:", columns)
+    print("Headers:", headers)
+    print("Columns mapping:", columns)
 
     # Prompt user to check journal title
     journal_title = input("Check journal title: ").strip().lower()
     found = False
     searched_apc = None
     for row in journal_data:
-        if row[columns['journaltitle']].strip().lower() == journal_title:
-            #print(f"Journal found: {row}")
+        if row[columns['journal title']].strip().lower() == journal_title:
+            print(f"Journal found: {row}")
             found = True
             publisher = row[columns['publisher']].strip().lower()
             research_area = row[columns['research area']].strip().lower()
             if publisher == 'elsevier':
                 if Elsevier_vouchers > 0:
-                    print("You can use voucher from national Elsevier license")
+                    print("You can pay APC from national Elsevier license")
                 else:
-                    print("Not enough vouchers. Check Oxygenium program")
+                    print("Check Oxygenium program")
                 searched_apc = float(row[columns['apc']])  # Set searched_apc for Elsevier
             elif publisher == 'wiley':
                 try:
@@ -55,7 +55,7 @@ def main():
                                 try:
                                     other_apc_value = float(other_row[columns['apc']])
                                     if Wiley_deposit > other_apc_value:
-                                        print("Another journal in your research area found:" [columns['journaltitle']])
+                                        print(f"Another journal in your research area found: {other_row[columns['journal title']]}")
                                         print("You can pay APC in this journal from consortium Wiley license")
                                         break
                                 except ValueError:
@@ -69,11 +69,11 @@ def main():
 
     # Plotting the APC values
     apc_values = [float(row[columns['apc']]) for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
-    journal_titles = [row[columns['journaltitle']] for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
+    journal_titles = [row[columns['journal title']] for row in journal_data if row[columns['apc']].replace('.', '', 1).isdigit()]
 
-    #print("APC Values:", apc_values)
-    #print("Journal Titles:", journal_titles)
-    #print("Searched APC:", searched_apc)
+    print("APC Values:", apc_values)
+    print("Journal Titles:", journal_titles)
+    print("Searched APC:", searched_apc)
 
     plt.figure(figsize=(10, 5))
     bars = plt.bar(journal_titles, apc_values, color='blue')
@@ -83,7 +83,7 @@ def main():
         for bar, apc in zip(bars, apc_values):
             if apc == searched_apc:
                 bar.set_color('red')
-               #print(f"Highlighted APC: {apc}")
+                print(f"Highlighted APC: {apc} for journal: {row[columns['journal title']]}")
 
     plt.xlabel('Journal Titles')
     plt.ylabel('APC Values')
