@@ -57,7 +57,7 @@ for row in journal_data:
                                 other_apc_value = float(other_row[columns['apc']])
                                 if Wiley_deposit > other_apc_value:
                                     print(f"Another Wiley journal found: {other_row}")
-                                    print("You can pay APC from consortium Wiley license")
+                                    print("This APC can be paid from consortium Wiley license")
                                     break
                             except ValueError:
                                 continue
